@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct ReversiMove: Equatable {
+    var x: Int
+    var y: Int
+}

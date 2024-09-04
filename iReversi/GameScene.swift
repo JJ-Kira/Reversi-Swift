@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  iReversi
 //
-//  Created by User on 21.08.2024.
+//  Created by Julia Szczuczko on 21.08.2024.
 //
 
 import SpriteKit

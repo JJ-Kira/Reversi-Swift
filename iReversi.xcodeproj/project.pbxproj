@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42FE2D762C88B1DE009F51F3 /* ReversiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D752C88B1DD009F51F3 /* ReversiView.swift */; };
+		42FE2D782C88B212009F51F3 /* ReversiInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */; };
+		42FE2D7A2C88CC25009F51F3 /* ReversiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */; };
 		CE9CDA262C767B60001BA8A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CDA252C767B60001BA8A4 /* AppDelegate.swift */; };
 		CE9CDA282C767B67001BA8A4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9CDA272C767B66001BA8A4 /* GameScene.sks */; };
 		CE9CDA2A2C767B67001BA8A4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9CDA292C767B67001BA8A4 /* Actions.sks */; };
 		CE9CDA2C2C767B67001BA8A4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CDA2B2C767B67001BA8A4 /* GameScene.swift */; };
-		CE9CDA2E2C767B67001BA8A4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CDA2D2C767B67001BA8A4 /* GameViewController.swift */; };
+		CE9CDA2E2C767B67001BA8A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CDA2D2C767B67001BA8A4 /* ViewController.swift */; };
 		CE9CDA312C767B67001BA8A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9CDA2F2C767B67001BA8A4 /* Main.storyboard */; };
 		CE9CDA332C767B6F001BA8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9CDA322C767B6F001BA8A4 /* Assets.xcassets */; };
 		CE9CDA362C767B6F001BA8A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9CDA342C767B6F001BA8A4 /* LaunchScreen.storyboard */; };
@@ -25,12 +28,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42FE2D752C88B1DD009F51F3 /* ReversiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiView.swift; sourceTree = "<group>"; };
+		42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiInteractor.swift; sourceTree = "<group>"; };
+		42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiViewModel.swift; sourceTree = "<group>"; };
 		CE9CDA222C767B60001BA8A4 /* iReversi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iReversi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9CDA252C767B60001BA8A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE9CDA272C767B66001BA8A4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9CDA292C767B67001BA8A4 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		CE9CDA2B2C767B67001BA8A4 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		CE9CDA2D2C767B67001BA8A4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		CE9CDA2D2C767B67001BA8A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE9CDA302C767B67001BA8A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE9CDA322C767B6F001BA8A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE9CDA352C767B6F001BA8A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,10 +85,13 @@
 				CE9CDA272C767B66001BA8A4 /* GameScene.sks */,
 				CE9CDA292C767B67001BA8A4 /* Actions.sks */,
 				CE9CDA2B2C767B67001BA8A4 /* GameScene.swift */,
-				CE9CDA2D2C767B67001BA8A4 /* GameViewController.swift */,
+				CE9CDA2D2C767B67001BA8A4 /* ViewController.swift */,
 				CE9CDA2F2C767B67001BA8A4 /* Main.storyboard */,
 				CE9CDA322C767B6F001BA8A4 /* Assets.xcassets */,
 				CE9CDA342C767B6F001BA8A4 /* LaunchScreen.storyboard */,
+				42FE2D752C88B1DD009F51F3 /* ReversiView.swift */,
+				42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */,
+				42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */,
 			);
 			path = iReversi;
 			sourceTree = "<group>";
@@ -182,12 +191,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9CDA492C768AC5001BA8A4 /* ReversiGame.swift in Sources */,
+				42FE2D782C88B212009F51F3 /* ReversiInteractor.swift in Sources */,
 				CE9CDA4B2C768B53001BA8A4 /* ReversiMove.swift in Sources */,
+				42FE2D762C88B1DE009F51F3 /* ReversiView.swift in Sources */,
+				42FE2D7A2C88CC25009F51F3 /* ReversiViewModel.swift in Sources */,
 				CE9CDA432C7689BA001BA8A4 /* AlphaBetaPruning.swift in Sources */,
 				CE9CDA412C768967001BA8A4 /* MCTSNode.swift in Sources */,
 				CE9CDA2C2C767B67001BA8A4 /* GameScene.swift in Sources */,
 				CE9CDA452C768A65001BA8A4 /* ABPEvaluation.swift in Sources */,
-				CE9CDA2E2C767B67001BA8A4 /* GameViewController.swift in Sources */,
+				CE9CDA2E2C767B67001BA8A4 /* ViewController.swift in Sources */,
 				CE9CDA472C768A97001BA8A4 /* ReversiBoard.swift in Sources */,
 				CE9CDA262C767B60001BA8A4 /* AppDelegate.swift in Sources */,
 				CE9CDA3F2C768924001BA8A4 /* MonteCarloTreeSearch.swift in Sources */,
