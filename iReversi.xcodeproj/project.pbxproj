@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		423F8AA92C91C311009AAF87 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423F8AA82C91C311009AAF87 /* SideMenuViewController.swift */; };
 		42FE2D762C88B1DE009F51F3 /* ReversiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D752C88B1DD009F51F3 /* ReversiView.swift */; };
 		42FE2D782C88B212009F51F3 /* ReversiInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */; };
 		42FE2D7A2C88CC25009F51F3 /* ReversiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		423F8AA82C91C311009AAF87 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		42FE2D752C88B1DD009F51F3 /* ReversiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiView.swift; sourceTree = "<group>"; };
 		42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiInteractor.swift; sourceTree = "<group>"; };
 		42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiViewModel.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				42FE2D752C88B1DD009F51F3 /* ReversiView.swift */,
 				42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */,
 				42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */,
+				423F8AA82C91C311009AAF87 /* SideMenuViewController.swift */,
 			);
 			path = iReversi;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				42FE2D782C88B212009F51F3 /* ReversiInteractor.swift in Sources */,
 				CE9CDA4B2C768B53001BA8A4 /* ReversiMove.swift in Sources */,
 				42FE2D762C88B1DE009F51F3 /* ReversiView.swift in Sources */,
+				423F8AA92C91C311009AAF87 /* SideMenuViewController.swift in Sources */,
 				42FE2D7A2C88CC25009F51F3 /* ReversiViewModel.swift in Sources */,
 				CE9CDA432C7689BA001BA8A4 /* AlphaBetaPruning.swift in Sources */,
 				CE9CDA412C768967001BA8A4 /* MCTSNode.swift in Sources */,
@@ -351,7 +355,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -378,7 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
