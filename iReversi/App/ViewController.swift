@@ -148,11 +148,14 @@ extension ViewController: SideMenuViewControllerDelegate {
         switch row {
         case 0:
             // MCTS
-            self.showViewController(viewController: UINavigationController.self, storyboardId: "ContentID")
+            interactor.restartGame(Opponent.human)
         case 1:
-            // ABP
-            self.showViewController(viewController: UINavigationController.self, storyboardId: "MusicNavID")
+            // MCTS
+            interactor.restartGame(Opponent.monteCarlo)
         case 2:
+            // ABP
+            game.restartGame(Opponent.alphaBetaPruning)
+        case 3:
             // Quit
             exit(0)
         default:

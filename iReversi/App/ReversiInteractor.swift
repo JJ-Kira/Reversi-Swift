@@ -12,10 +12,12 @@ protocol ReversiInteractorListener: AnyObject {
 }
 
 class ReversiInteractor {
+    private var currentOpponent: Opponent = .alphaBetaPruning  // Default opponent
     private var game: ReversiGame!
     private let playerColor = ReversiBoard.Color.white
     private let opponentColor = ReversiBoard.Color.black
-    private var mctsSearch: MonteCarloTreeSearch!
+    private var mctSearch: MonteCarloTreeSearch!
+    private var abPruning: alphaBetaPruning!
     private var activeOpponentInfo: String = ""
     private var highlightedMoves: [(move: ReversiMove, color: UIColor)] = []
     
@@ -46,6 +48,46 @@ class ReversiInteractor {
             checkAIOpponent()
         }
     }
+
+
+    // RESETTING THE GAME
+    mutating func resetGame(_ withAIType: Opponent) {
+        // Reset the board to initial setup with the chosen AI opponent type
+        self.currentOpponent = withAIType
+        game.resetGame()
+        updateBoardView()   // Update the UI for the new game
+    }
+
+    // Updates the board view based on the current state of the game
+    func updateBoardView() {
+        for x in 0..<game.board.boardWidth {
+            for y in 0..<game.board.boardHeight {
+                let piece = game.board.pieceAt(x: x, y: y)
+                updatePieceView(atX: x, y: y, with: piece)
+            }
+        }
+    }
+
+    // Updates an individual piece at a specific board position
+    func updatePieceView(atX x: Int, y: Int, with piece: ReversiBoard.Piece) {
+        // Assuming you have a method to get the correct UIView or UIButton for this position
+        let pieceView = getPieceViewAt(x: x, y: y)
+        
+        // Update the view's appearance based on the piece (black, white, or empty)
+        switch piece {
+        case .color(let color):
+            pieceView.backgroundColor = (color == .black) ? .black : .white
+        case .empty:
+            pieceView.backgroundColor = .clear
+        }
+    }
+
+    // Returns the UIView or UIButton representing the piece at a given board position
+    func getPieceViewAt(x: Int, y: Int) -> UIView {
+        // This depends on how your board UI is set up. If you are using a grid of UIViews or buttons, return the appropriate view.
+        // Example:
+        return boardView.subviews[x * game.board.boardWidth + y]  // Adjust based on your layout
+    }
 }
 
 private extension ReversiInteractor {
@@ -53,8 +95,8 @@ private extension ReversiInteractor {
         if case .turn(let color) = game.state , color == opponentColor {
             let currentGameState = game
             
-            if mctsSearch == nil {
-                mctsSearch = MonteCarloTreeSearch(startingGameState: currentGameState!, opponentColor: opponentColor)
+            if mctSearch == nil {
+                mctSearch = MonteCarloTreeSearch(startingGameState: currentGameState!, opponentColor: opponentColor)
             }
             
             let aiThinkTime: TimeInterval = 2
@@ -68,8 +110,8 @@ private extension ReversiInteractor {
     private func runAIOpponentTurn(timeLimit: TimeInterval, fromGameState currentGameState: ReversiGame) {
         print("Starting Monte Carlo Tree Search")
         
-        mctsSearch.updateStartingState(currentGameState) // Use this to reuse already computed nodes
-        //mctsSearch = MonteCarloTreeSearch(startingGameState: currentGameState, aiColor: aiColor) // Use this to start with a clean sheet.
+        mctSearch.updateStartingState(currentGameState) // Use this to reuse already computed nodes
+        //mctSearch = MonteCarloTreeSearch(startingGameState: currentGameState, aiColor: aiColor) // Use this to start with a clean sheet.
         
         // Loop until allotted timeLimit is reached,
         // eport updates to ui frequently so the user doesn't have to start an static screen
@@ -77,16 +119,16 @@ private extension ReversiInteractor {
         let start = Date.timeIntervalSinceReferenceDate
         var lastUpdateTime = start
         while Date.timeIntervalSinceReferenceDate - start < timeLimit {
-            if mctsSearch.hasUnsimulatedPlays() == false {
+            if mctSearch.hasUnsimulatedPlays() == false {
                 break
             }
             
-            mctsSearch.iterateSearch()
+            mctSearch.iterateSearch()
             
             let now = Date.timeIntervalSinceReferenceDate
             if now - lastUpdateTime > uiUpdateInterval {
                 lastUpdateTime = now
-                let tempSearchResults = mctsSearch.results()
+                let tempSearchResults = mctSearch.results()
                 
                 DispatchQueue.main.async {
                     self.updateAIOpponentWithInterimSearchResults(tempSearchResults)
@@ -95,7 +137,7 @@ private extension ReversiInteractor {
         }
         let end = Date.timeIntervalSinceReferenceDate
         
-        let searchResults = mctsSearch.results()
+        let searchResults = mctSearch.results()
         
         printResults(searchResults)
         

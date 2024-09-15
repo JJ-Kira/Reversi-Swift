@@ -20,6 +20,7 @@ class SideMenuViewController: UIViewController {
     var defaultHighlightedCell: Int = 0
 
     var menu: [SideMenuModel] = [
+        SideMenuModel(icon: UIImage(systemName: "human")!, title: "New 2-player game"),
         SideMenuModel(icon: UIImage(systemName: "ABP")!, title: "New Alpha-Beta-Pruning game"),
         SideMenuModel(icon: UIImage(systemName: "MCTS")!, title: "New Monte Carlo Tree Search game"),
         SideMenuModel(icon: UIImage(systemName: "quit")!, title: "Quit"),

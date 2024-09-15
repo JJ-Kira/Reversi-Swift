@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum Opponent {
+    case monteCarlo
+    case alphaBetaPruning
+    case human
+}
+
 struct ReversiGame: Equatable {
     enum State {
         case turn(ReversiBoard.Color)
@@ -17,7 +23,7 @@ struct ReversiGame: Equatable {
     private(set) var board: ReversiBoard
     private(set) var state: State
     
-    init () {
+    init() {
         board = ReversiBoard()
         board[3, 3] = ReversiBoard.Piece.color(ReversiBoard.Color.white)
         board[4, 4] = ReversiBoard.Piece.color(ReversiBoard.Color.white)
@@ -25,6 +31,20 @@ struct ReversiGame: Equatable {
         board[4, 3] = ReversiBoard.Piece.color(ReversiBoard.Color.black)
         
         state = .turn(ReversiBoard.Color.white)
+    }
+
+    // Restart the game
+    mutating func resetGame() {
+        board = ReversiBoard()
+        board[3, 3] = ReversiBoard.Piece.color(ReversiBoard.Color.white)
+        board[4, 4] = ReversiBoard.Piece.color(ReversiBoard.Color.white)
+        board[3, 4] = ReversiBoard.Piece.color(ReversiBoard.Color.black)
+        board[4, 3] = ReversiBoard.Piece.color(ReversiBoard.Color.black)
+        
+        // Reset the game state to the initial state (white's turn)
+        state = .turn(.white)
+        
+        // You can also reset any additional game-specific state variables if needed
     }
     
     func allMoves(_ color: ReversiBoard.Color) -> [ReversiMove] {
@@ -196,4 +216,8 @@ extension ReversiGame : Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(board)
     }
+}
+
+protocol AIOpponent {
+    func makeMove(board: Board, player: Player) -> Move
 }
