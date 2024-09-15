@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum Opponent {
-    case monteCarlo
-    case alphaBetaPruning
-    case human
-}
-
 struct ReversiGame: Equatable {
     enum State {
         case turn(ReversiBoard.Color)
@@ -216,8 +210,4 @@ extension ReversiGame : Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(board)
     }
-}
-
-protocol AIOpponent {
-    func makeMove(board: Board, player: Player) -> Move
 }

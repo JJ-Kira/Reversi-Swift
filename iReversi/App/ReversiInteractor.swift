@@ -11,6 +11,12 @@ protocol ReversiInteractorListener: AnyObject {
     func didUpdate(viewModel: ReversiViewModel)
 }
 
+enum Opponent {
+    case monteCarlo
+    case alphaBeta
+    case human
+}
+
 class ReversiInteractor {
     private var currentOpponent: Opponent = .alphaBetaPruning  // Default opponent
     private var game: ReversiGame!
@@ -45,7 +51,7 @@ class ReversiInteractor {
             game.makeMove(move, for: color)
             notifyViewModelDidChange()
             
-            checkAIOpponent()
+        ()
         }
     }
 
@@ -54,6 +60,7 @@ class ReversiInteractor {
     mutating func resetGame(_ withAIType: Opponent) {
         // Reset the board to initial setup with the chosen AI opponent type
         self.currentOpponent = withAIType
+        //game = ReversiGame()
         game.resetGame()
         updateBoardView()   // Update the UI for the new game
     }
@@ -91,30 +98,66 @@ class ReversiInteractor {
 }
 
 private extension ReversiInteractor {
-    private func checkAIOpponent() {
+    private func checkOpponent() {
         if case .turn(let color) = game.state , color == opponentColor {
             let currentGameState = game
             
-            if mctSearch == nil {
-                mctSearch = MonteCarloTreeSearch(startingGameState: currentGameState!, opponentColor: opponentColor)
-            }
+            switch currentOpponent {
+                case .monteCarlo:
+                    if mctSearch == nil {
+                        mctSearch = MonteCarloTreeSearch(startingGameState: currentGameState!, opponentColor: opponentColor)
+                    }
+                    
+                    let aiThinkTime: TimeInterval = 2
+                    
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
+                        self.runMCTSOpponentTurn(timeLimit: aiThinkTime, fromGameState: currentGameState!)
+                    }
+                case .alphaBetaPruning:
+                    print("Starting Alpha-Beta Pruning Search")
+    
+                    if abPruning == nil {
+                        abPruning = AlphaBetaPruning(opponentColor: opponentColor)
+                    }
+
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        let bestMove = abPruning.findBestMove(gameState: self.game)
+                        
+                        DispatchQueue.main.async {
+                            self.makeAIOpponentMove(bestMove, searchResults: nil, duration: 0)
+                        }
+                    }
+                case .human:
+                    // If it's the human's turn, do nothing — waiting for human interaction.
+                    return
+        }
+    }
+
+    private func runAlphaBetaPruningSearch() {
+        print("Starting Alpha-Beta Pruning Search")
+        
+        // TODO: implement
+        if abPruning == nil {
+            abPruning = AlphaBetaPruning(startingGameState: game, opponentColor: opponentColor)
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let bestMove = abPruning.findBestMove()  // Call the Alpha-Beta Pruning logic to find the best move
             
-            let aiThinkTime: TimeInterval = 2
-            
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
-                self.runAIOpponentTurn(timeLimit: aiThinkTime, fromGameState: currentGameState!)
+            DispatchQueue.main.async {
+                self.makeAIOpponentMove(bestMove, searchResults: nil, duration: 0)  // No search results to display for Alpha-Beta Pruning
             }
         }
     }
     
-    private func runAIOpponentTurn(timeLimit: TimeInterval, fromGameState currentGameState: ReversiGame) {
+    private func runMCTSOpponentTurn(timeLimit: TimeInterval, fromGameState currentGameState: ReversiGame) {
         print("Starting Monte Carlo Tree Search")
         
         mctSearch.updateStartingState(currentGameState) // Use this to reuse already computed nodes
         //mctSearch = MonteCarloTreeSearch(startingGameState: currentGameState, aiColor: aiColor) // Use this to start with a clean sheet.
         
         // Loop until allotted timeLimit is reached,
-        // eport updates to ui frequently so the user doesn't have to start an static screen
+        // Show updates to UI frequently so the user doesn't have to stare at a static screen
         let uiUpdateInterval = 0.1
         let start = Date.timeIntervalSinceReferenceDate
         var lastUpdateTime = start
@@ -166,13 +209,17 @@ private extension ReversiInteractor {
         
         highlightedMoves = []
         
-        activeOpponentInfo = """
-Simulated \(searchResults.simulations) games in \(Int(duration)) s, conf: \(Int(searchResults.confidence * 100))%
-\(Int(Double(searchResults.simulations) / duration)) Games per second
-"""
+        if (currentOpponent == Opponent.MonteCarlo) {
+            activeOpponentInfo = """
+            Simulated \(searchResults.simulations) games in \(Int(duration)) s, conf: \(Int(searchResults.confidence * 100))%
+            \(Int(Double(searchResults.simulations) / duration)) Games per second
+            """
+        }
+        else {
+            ""
+        }
         
         notifyViewModelDidChange()
-        
         checkAIOpponent()
     }
     
