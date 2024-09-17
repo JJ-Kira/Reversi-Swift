@@ -10,7 +10,7 @@ import Foundation
 final class ABPEvaluation {
 
     // Score evaluation for the current game state
-    static func evaluate(gameState: ReversiGame, forPlayer playerColor: ReversiBoard.Color) -> Int {
+    func evaluate(gameState: ReversiGame, forPlayer playerColor: ReversiBoard.Color) -> Int {
         let board = gameState.board
         var score = 0
 
@@ -34,7 +34,7 @@ final class ABPEvaluation {
     }
 
     // Generates a weighted board similar to the C# version, prioritizing corners and edges
-    private static func generateSquareWeights(boardSize: Int) -> [[Int]] {
+    private func generateSquareWeights(boardSize: Int) -> [[Int]] {
         var squareWeights = Array(repeating: Array(repeating: 0, count: boardSize), count: boardSize)
 
         let cornerWeight = 20

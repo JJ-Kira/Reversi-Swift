@@ -14,16 +14,15 @@ protocol SideMenuViewControllerDelegate {
 }
 
 class SideMenuViewController: UIViewController {
-    @IBOutlet var headerImageView: UIImageView!
     @IBOutlet var sideMenuTableView: UITableView!
 
     var defaultHighlightedCell: Int = 0
 
     var menu: [SideMenuModel] = [
-        SideMenuModel(icon: UIImage(systemName: "human")!, title: "New 2-player game"),
-        SideMenuModel(icon: UIImage(systemName: "ABP")!, title: "New Alpha-Beta-Pruning game"),
-        SideMenuModel(icon: UIImage(systemName: "MCTS")!, title: "New Monte Carlo Tree Search game"),
-        SideMenuModel(icon: UIImage(systemName: "quit")!, title: "Quit"),
+        SideMenuModel(icon: UIImage(named: "human")!, title: "New 2-player game"),
+        SideMenuModel(icon: UIImage(named: "ABP")!, title: "New Alpha-Beta-Pruning game"),
+        SideMenuModel(icon: UIImage(named: "MCTS")!, title: "New Monte Carlo Tree Search game"),
+        SideMenuModel(icon: UIImage(named: "quit")!, title: "Quit"),
     ]
     
     var delegate: SideMenuViewControllerDelegate?

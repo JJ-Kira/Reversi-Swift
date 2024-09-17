@@ -10,11 +10,14 @@ import Foundation
 final class AlphaBetaPruning {
     private let maxDepth: Int
     private let opponentColor: ReversiBoard.Color
+    private var gamestateEvaluation: ABPEvaluation
 
     init(maxDepth: Int = 5, opponentColor: ReversiBoard.Color) {
         self.maxDepth = maxDepth
         self.opponentColor = opponentColor
+        self.gamestateEvaluation = ABPEvaluation() // build a container node
     }
+
 
     // Entry point for the AI move, similar to bestAction() in MonteCarloTreeSearch
     func findBestMove(gameState: ReversiGame) -> ReversiMove {
@@ -40,7 +43,7 @@ final class AlphaBetaPruning {
     // Alpha-Beta Pruning algorithm
     private func alphaBeta(gameState: ReversiGame, depth: Int, alpha: Int, beta: Int, maximizingPlayer: Bool) -> Int {
         if depth == 0 || gameState.state == .won(opponentColor) || gameState.state == .tie {
-            return evaluate(gameState: gameState)
+            return gamestateEvaluation.evaluate(gameState: gameState, forPlayer: opponentColor)
         }
 
         var alpha = alpha

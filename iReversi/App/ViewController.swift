@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultsLabel: UILabel!
     @IBOutlet weak var boardConstraint: NSLayoutConstraint!
     @IBOutlet weak var opponentInfoLabel: UILabel!
-    
+    @IBOutlet var sideMenuBtn: UIBarButtonItem!
+
     private var sideMenuViewController: SideMenuViewController!
     private var sideMenuRevealWidth: CGFloat = 260
     private let paddingForRotation: CGFloat = 150
@@ -36,6 +37,9 @@ class ViewController: UIViewController {
         
         interactor = ReversiInteractor()
         interactor.listener = self
+        
+        sideMenuBtn.target = revealViewController()
+        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
         
         opponentInfoLabel.font = UIFont.monospacedDigitSystemFont(ofSize: opponentInfoLabel.font.pointSize, weight: .regular)
         
@@ -76,25 +80,21 @@ class ViewController: UIViewController {
 
         // Side Menu Gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        panGestureRecognizer.delegate = self
-        view.addGestureRecognizer(panGestureRecognizer)
-        
-        // Default Main View Controller
-        showViewController(viewController: UINavigationController.self, storyboardId: "ContentID")
+                panGestureRecognizer.delegate = self
+                view.addGestureRecognizer(panGestureRecognizer)
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateBoardMargin(view.bounds.size)
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        updateBoardMargin(size)
-    }
+
 
     // Keep the state of the side menu (expanded or collapse) in rotation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        updateBoardMargin(size)
         coordinator.animate { _ in
             if self.revealSideMenuOnTop {
                 self.sideMenuTrailingConstraint.constant = self.isExpanded ? 0 : (-self.sideMenuRevealWidth - self.paddingForRotation)
@@ -154,7 +154,7 @@ extension ViewController: SideMenuViewControllerDelegate {
             interactor.restartGame(Opponent.monteCarlo)
         case 2:
             // ABP
-            game.restartGame(Opponent.alphaBetaPruning)
+            interactor.restartGame(Opponent.alphaBeta)
         case 3:
             // Quit
             exit(0)
@@ -164,38 +164,6 @@ extension ViewController: SideMenuViewControllerDelegate {
 
         // Collapse side menu with animation
         DispatchQueue.main.async { self.sideMenuState(expanded: false) }
-    }
-
-    func showViewController<T: UIViewController>(viewController: T.Type, storyboardId: String) -> () {
-        // Remove the previous View
-        for subview in view.subviews {
-            if subview.tag == 99 {
-                subview.removeFromSuperview()
-            }
-        }
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: storyboardId) as! T
-        vc.view.tag = 99
-        view.insertSubview(vc.view, at: self.revealSideMenuOnTop ? 0 : 1)
-        addChild(vc)
-        DispatchQueue.main.async {
-            vc.view.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                vc.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-                vc.view.topAnchor.constraint(equalTo: self.view.topAnchor),
-                vc.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-                vc.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-            ])
-        }
-        if !self.revealSideMenuOnTop {
-            if isExpanded {
-                vc.view.frame.origin.x = self.sideMenuRevealWidth
-            }
-            if self.sideMenuShadowView != nil {
-                vc.view.addSubview(self.sideMenuShadowView)
-            }
-        }
-        vc.didMove(toParent: self)
     }
 
     func sideMenuState(expanded: Bool) {
@@ -248,7 +216,7 @@ extension UIViewController {
     
 }
 
-extension MainViewController: UIGestureRecognizerDelegate {
+extension ViewController: UIGestureRecognizerDelegate {
     @objc func TapGestureRecognizer(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             if self.isExpanded {
