@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4279B6B62C9B3ACB00606B15 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4279B6B52C9B3ACB00606B15 /* SideMenuViewController.swift */; };
+		4279B6B92C9B3B5600606B15 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4279B6B72C9B3B5600606B15 /* SideMenuCell.swift */; };
+		4279B6BA2C9B3B5600606B15 /* SideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4279B6B82C9B3B5600606B15 /* SideMenuCell.xib */; };
+		4279B6BC2C9B3BD500606B15 /* SideMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4279B6BB2C9B3BD500606B15 /* SideMenuModel.swift */; };
 		42FE2D762C88B1DE009F51F3 /* ReversiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D752C88B1DD009F51F3 /* ReversiView.swift */; };
 		42FE2D782C88B212009F51F3 /* ReversiInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */; };
 		42FE2D7A2C88CC25009F51F3 /* ReversiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */; };
@@ -28,6 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4279B6B52C9B3ACB00606B15 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		4279B6B72C9B3B5600606B15 /* SideMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuCell.swift; path = "../../../../../Downloads/CustomSideMenuiOSExample-main/CustomSideMenuiOSExample/SideMenu/Cell/SideMenuCell.swift"; sourceTree = "<group>"; };
+		4279B6B82C9B3B5600606B15 /* SideMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SideMenuCell.xib; path = "../../../../../Downloads/CustomSideMenuiOSExample-main/CustomSideMenuiOSExample/SideMenu/Cell/SideMenuCell.xib"; sourceTree = "<group>"; };
+		4279B6BB2C9B3BD500606B15 /* SideMenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SideMenuModel.swift; path = "../../../../../Downloads/CustomSideMenuiOSExample-main/CustomSideMenuiOSExample/SideMenu/SideMenuModel.swift"; sourceTree = "<group>"; };
 		42FE2D752C88B1DD009F51F3 /* ReversiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiView.swift; sourceTree = "<group>"; };
 		42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiInteractor.swift; sourceTree = "<group>"; };
 		42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversiViewModel.swift; sourceTree = "<group>"; };
@@ -60,6 +68,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4279B6B42C9B3AA000606B15 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4279B6BB2C9B3BD500606B15 /* SideMenuModel.swift */,
+				4279B6B72C9B3B5600606B15 /* SideMenuCell.swift */,
+				4279B6B82C9B3B5600606B15 /* SideMenuCell.xib */,
+				CE9CDA2D2C767B67001BA8A4 /* ViewController.swift */,
+				42FE2D752C88B1DD009F51F3 /* ReversiView.swift */,
+				42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */,
+				4279B6B52C9B3ACB00606B15 /* SideMenuViewController.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		CE9CDA192C767B5F001BA8A4 = {
 			isa = PBXGroup;
 			children = (
@@ -85,13 +107,10 @@
 				CE9CDA272C767B66001BA8A4 /* GameScene.sks */,
 				CE9CDA292C767B67001BA8A4 /* Actions.sks */,
 				CE9CDA2B2C767B67001BA8A4 /* GameScene.swift */,
-				CE9CDA2D2C767B67001BA8A4 /* ViewController.swift */,
+				4279B6B42C9B3AA000606B15 /* App */,
 				CE9CDA2F2C767B67001BA8A4 /* Main.storyboard */,
 				CE9CDA322C767B6F001BA8A4 /* Assets.xcassets */,
 				CE9CDA342C767B6F001BA8A4 /* LaunchScreen.storyboard */,
-				42FE2D752C88B1DD009F51F3 /* ReversiView.swift */,
-				42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */,
-				42FE2D792C88CC25009F51F3 /* ReversiViewModel.swift */,
 			);
 			path = iReversi;
 			sourceTree = "<group>";
@@ -99,6 +118,7 @@
 		CE9CDA3C2C768070001BA8A4 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				42FE2D772C88B212009F51F3 /* ReversiInteractor.swift */,
 				CE9CDA462C768A96001BA8A4 /* ReversiBoard.swift */,
 				CE9CDA482C768AC4001BA8A4 /* ReversiGame.swift */,
 				CE9CDA4A2C768B52001BA8A4 /* ReversiMove.swift */,
@@ -180,6 +200,7 @@
 				CE9CDA332C767B6F001BA8A4 /* Assets.xcassets in Resources */,
 				CE9CDA362C767B6F001BA8A4 /* LaunchScreen.storyboard in Resources */,
 				CE9CDA2A2C767B67001BA8A4 /* Actions.sks in Resources */,
+				4279B6BA2C9B3B5600606B15 /* SideMenuCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,12 +215,15 @@
 				42FE2D782C88B212009F51F3 /* ReversiInteractor.swift in Sources */,
 				CE9CDA4B2C768B53001BA8A4 /* ReversiMove.swift in Sources */,
 				42FE2D762C88B1DE009F51F3 /* ReversiView.swift in Sources */,
+				4279B6B62C9B3ACB00606B15 /* SideMenuViewController.swift in Sources */,
 				42FE2D7A2C88CC25009F51F3 /* ReversiViewModel.swift in Sources */,
 				CE9CDA432C7689BA001BA8A4 /* AlphaBetaPruning.swift in Sources */,
 				CE9CDA412C768967001BA8A4 /* MCTSNode.swift in Sources */,
 				CE9CDA2C2C767B67001BA8A4 /* GameScene.swift in Sources */,
+				4279B6BC2C9B3BD500606B15 /* SideMenuModel.swift in Sources */,
 				CE9CDA452C768A65001BA8A4 /* ABPEvaluation.swift in Sources */,
 				CE9CDA2E2C767B67001BA8A4 /* ViewController.swift in Sources */,
+				4279B6B92C9B3B5600606B15 /* SideMenuCell.swift in Sources */,
 				CE9CDA472C768A97001BA8A4 /* ReversiBoard.swift in Sources */,
 				CE9CDA262C767B60001BA8A4 /* AppDelegate.swift in Sources */,
 				CE9CDA3F2C768924001BA8A4 /* MonteCarloTreeSearch.swift in Sources */,

@@ -3,13 +3,15 @@
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="iReversi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainID" id="BYZ-38-t0r" customClass="ViewController" customModule="iReversi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -103,10 +105,14 @@
                         <outlet property="opponentInfoLabel" destination="mxy-Xp-z9j" id="ZmI-Xh-ccx"/>
                         <outlet property="resultsLabel" destination="dG2-uW-n75" id="Jgl-Er-tJ8"/>
                         <outlet property="reversiView" destination="Wtx-Sx-cm9" id="q2M-Rt-r0j"/>
+                        <outlet property="sideMenuBtn" destination="5ge-Tf-raZ" id="Ikr-bb-I7H"/>
                         <outlet property="turnLabel" destination="Kk9-ni-8kr" id="nL7-Ov-XRz"/>
                         <outlet property="whiteScoreLabel" destination="LPp-Ru-t9c" id="gY8-Rl-vtI"/>
                     </connections>
                 </viewController>
+                <navigationItem title="Game" id="K0x-7i-6xF">
+                    <barButtonItem key="leftBarButtonItem" title="Menu" image="menu" id="5ge-Tf-raZ"/>
+                </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="M3t-5b-c6g">
                     <connections>
@@ -116,5 +122,63 @@
             </objects>
             <point key="canvasLocation" x="304.61538461538458" y="279.38388625592415"/>
         </scene>
+        <!--Side Menu View Controller-->
+        <scene sceneID="KCw-1b-6K3">
+            <objects>
+                <viewController storyboardIdentifier="SideMenuID" id="ydW-7t-MS7" customClass="SideMenuViewController" customModule="iReversi" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xih-Eb-xKh">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FBO-eD-7Y5">
+                                <rect key="frame" x="0.0" y="127" width="260" height="704"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Footer Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fm6-8e-Sjm">
+                                <rect key="frame" x="10" y="839" width="240" height="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Reversi" translatesAutoresizingMaskIntoConstraints="NO" id="i4N-lg-Mdv">
+                                <rect key="frame" x="16" y="33" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="zBP-8A-R0A"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kRt-6Y-KJ7"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Fm6-8e-Sjm" firstAttribute="leading" secondItem="kRt-6Y-KJ7" secondAttribute="leading" constant="10" id="DLL-am-jMU"/>
+                            <constraint firstItem="kRt-6Y-KJ7" firstAttribute="bottom" secondItem="Fm6-8e-Sjm" secondAttribute="bottom" constant="8" id="La3-sa-gsu"/>
+                            <constraint firstItem="FBO-eD-7Y5" firstAttribute="leading" secondItem="kRt-6Y-KJ7" secondAttribute="leading" id="MgC-Ro-7GC"/>
+                            <constraint firstItem="FBO-eD-7Y5" firstAttribute="top" secondItem="i4N-lg-Mdv" secondAttribute="bottom" constant="18" id="PdG-bo-SD5"/>
+                            <constraint firstItem="FBO-eD-7Y5" firstAttribute="trailing" secondItem="kRt-6Y-KJ7" secondAttribute="trailing" id="QnG-CY-cDV"/>
+                            <constraint firstAttribute="trailing" secondItem="i4N-lg-Mdv" secondAttribute="trailing" constant="17" id="bo2-WA-gcp"/>
+                            <constraint firstAttribute="trailing" secondItem="Fm6-8e-Sjm" secondAttribute="trailing" constant="10" id="oo2-iy-b4k"/>
+                            <constraint firstItem="i4N-lg-Mdv" firstAttribute="top" secondItem="kRt-6Y-KJ7" secondAttribute="top" id="qOb-5u-Yxk"/>
+                            <constraint firstItem="i4N-lg-Mdv" firstAttribute="leading" secondItem="kRt-6Y-KJ7" secondAttribute="leading" constant="16" id="seS-hi-IUg"/>
+                            <constraint firstItem="Fm6-8e-Sjm" firstAttribute="top" secondItem="FBO-eD-7Y5" secondAttribute="bottom" constant="8" id="vmD-aB-jUF"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="260" height="896"/>
+                    <connections>
+                        <outlet property="footerLabel" destination="Fm6-8e-Sjm" id="9bh-1k-KNR"/>
+                        <outlet property="headerImageView" destination="i4N-lg-Mdv" id="4dh-oA-q5k"/>
+                        <outlet property="sideMenuTableView" destination="FBO-eD-7Y5" id="SQT-JB-nwc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qrD-Rq-3cV" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-475" y="222"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Reversi" width="484" height="474"/>
+        <image name="menu" width="75" height="75"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
