@@ -27,6 +27,18 @@ struct ReversiGame: Equatable {
         state = .turn(ReversiBoard.Color.white)
     }
     
+    // Restart the game
+    mutating func reset() {
+        board = ReversiBoard()
+        board[3, 3] = ReversiBoard.Piece.color(ReversiBoard.Color.white)
+        board[4, 4] = ReversiBoard.Piece.color(ReversiBoard.Color.white)
+        board[3, 4] = ReversiBoard.Piece.color(ReversiBoard.Color.black)
+        board[4, 3] = ReversiBoard.Piece.color(ReversiBoard.Color.black)
+        
+        // Reset the game state to the initial state (white's turn)
+        state = .turn(.white)
+    }
+    
     func allMoves(_ color: ReversiBoard.Color) -> [ReversiMove] {
         var moves: Array<ReversiMove> = []
         moves.reserveCapacity(32)

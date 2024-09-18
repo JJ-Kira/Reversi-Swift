@@ -11,12 +11,19 @@ protocol ReversiInteractorListener: AnyObject {
     func didUpdate(viewModel: ReversiViewModel)
 }
 
+enum Opponent {
+    case monteCarlo
+    case alphaBeta //TODOs
+    case human
+}
+
 class ReversiInteractor {
+    var currentOpponent: Opponent = .monteCarlo
     private var game: ReversiGame!
     private let playerColor = ReversiBoard.Color.white
     private let opponentColor = ReversiBoard.Color.black
     private var mctsSearch: MonteCarloTreeSearch!
-    private var activeOpponentInfo: String = ""
+    private var activeOpponentInfo: String = "Monte Carlo Tree Search"
     private var highlightedMoves: [(move: ReversiMove, color: UIColor)] = []
     
     init() {
@@ -35,7 +42,7 @@ class ReversiInteractor {
     }
     
     func makePlayerMove(_ move: ReversiMove) {
-        guard case .turn(let color) = game.state , color == playerColor else {
+        guard case .turn(let color) = game.state else {
             return
         }
         
@@ -43,24 +50,54 @@ class ReversiInteractor {
             game.makeMove(move, for: color)
             notifyViewModelDidChange()
             
-            checkAIOpponent()
+            if color == playerColor {
+                checkAIOpponent()
+            }
         }
     }
+    
+    // RESETTING THE GAME
+    func restartGame(_ withAIType: Opponent) {
+        // Reset the board to initial setup with the chosen AI opponent type
+        self.currentOpponent = withAIType
+        game.reset()
+        
+        switch currentOpponent {
+        case .monteCarlo:
+            activeOpponentInfo = "Monte Carlo Tree Search"
+        case .alphaBeta:
+            activeOpponentInfo = "Alpha-Beta Pruning"
+        case .human:
+            activeOpponentInfo = "PvP"
+        }
+        
+        notifyViewModelDidChange()
+    }
 }
+
 
 private extension ReversiInteractor {
     private func checkAIOpponent() {
         if case .turn(let color) = game.state , color == opponentColor {
             let currentGameState = game
             
-            if mctsSearch == nil {
-                mctsSearch = MonteCarloTreeSearch(startingGameState: currentGameState!, opponentColor: opponentColor)
-            }
             
-            let aiThinkTime: TimeInterval = 2
-            
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
-                self.runAIOpponentTurn(timeLimit: aiThinkTime, fromGameState: currentGameState!)
+            switch currentOpponent {
+            case .monteCarlo:
+                if mctsSearch == nil {
+                    mctsSearch = MonteCarloTreeSearch(startingGameState: currentGameState!, opponentColor: opponentColor)
+                }
+                
+                let aiThinkTime: TimeInterval = 2
+                
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
+                    self.runAIOpponentTurn(timeLimit: aiThinkTime, fromGameState: currentGameState!)
+                }
+            case .alphaBeta:
+                return //TODO
+            case .human:
+                // If it's the human's turn, do nothing — waiting for human interaction.
+                return
             }
         }
     }
@@ -109,7 +146,6 @@ private extension ReversiInteractor {
     }
     
     private func updateAIOpponentWithInterimSearchResults(_ searchResults: (bestMove: ReversiMove, simulations: Int, confidence: Double, moves: [MCTSNode])) {
-        activeOpponentInfo = "Simulated \(searchResults.simulations) games"
         
         highlightedMoves = searchResults.moves.map { moveNode in
             let winrate = CGFloat(moveNode.wins) / CGFloat(moveNode.plays)
@@ -123,11 +159,6 @@ private extension ReversiInteractor {
         game.makeMove(move, for: opponentColor)
         
         highlightedMoves = []
-        
-        activeOpponentInfo = """
-Simulated \(searchResults.simulations) games in \(Int(duration)) s, conf: \(Int(searchResults.confidence * 100))%
-\(Int(Double(searchResults.simulations) / duration)) Games per second
-"""
         
         notifyViewModelDidChange()
         

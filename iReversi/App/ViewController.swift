@@ -179,16 +179,15 @@ extension ViewController: SideMenuViewControllerDelegate {
         switch row {
         case 0:
             // Human
-            return
+            interactor.restartGame(Opponent.human)
         case 1:
             // ABP
-            return
+            interactor.restartGame(Opponent.alphaBeta)
         case 2:
             // MCTS
-            blackScoreLabel.text = "2"
+            interactor.restartGame(Opponent.monteCarlo)
         case 3:
             // Quit
-            blackScoreLabel.text = "3"
             exit(0)
         default:
             break
