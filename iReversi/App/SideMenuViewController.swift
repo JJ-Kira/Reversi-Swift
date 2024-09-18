@@ -72,6 +72,10 @@ extension SideMenuViewController: UITableViewDataSource {
 
         cell.iconImageView.image = self.menu[indexPath.row].icon
         cell.titleLabel.text = self.menu[indexPath.row].title
+        
+        if indexPath.row == 0 || indexPath.row == 1 {
+            cell.titleLabel.textColor = .lightGray
+        }
 
         // Highlighted color
         let myCustomSelectionColorView = UIView()

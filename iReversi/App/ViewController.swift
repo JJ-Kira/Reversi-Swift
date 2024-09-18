@@ -179,10 +179,10 @@ extension ViewController: SideMenuViewControllerDelegate {
         switch row {
         case 0:
             // Human
-            blackScoreLabel.text = "0"
+            return
         case 1:
             // ABP
-            blackScoreLabel.text = "1"
+            return
         case 2:
             // MCTS
             blackScoreLabel.text = "2"

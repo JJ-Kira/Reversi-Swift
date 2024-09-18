@@ -98,7 +98,11 @@
                             <constraint firstItem="Wtx-Sx-cm9" firstAttribute="top" secondItem="dG2-uW-n75" secondAttribute="bottom" constant="10" id="yGO-Ur-ZRT"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Menu" image="menu" id="5ge-Tf-raZ"/>
+                    </toolbarItems>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="blackScoreLabel" destination="Pfx-V9-BOt" id="Scc-5s-p1f"/>
                         <outlet property="boardConstraint" destination="aLF-9q-zEM" id="2AJ-Sa-MWE"/>
@@ -110,9 +114,6 @@
                         <outlet property="whiteScoreLabel" destination="LPp-Ru-t9c" id="gY8-Rl-vtI"/>
                     </connections>
                 </viewController>
-                <navigationItem title="Game" id="K0x-7i-6xF">
-                    <barButtonItem key="leftBarButtonItem" title="Menu" image="menu" id="5ge-Tf-raZ"/>
-                </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="M3t-5b-c6g">
                     <connections>
