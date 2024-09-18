@@ -23,6 +23,7 @@ class ReversiInteractor {
     private let playerColor = ReversiBoard.Color.white
     private let opponentColor = ReversiBoard.Color.black
     private var mctsSearch: MonteCarloTreeSearch!
+    private var abPruning: AlphaBetaPruning!
     private var activeOpponentInfo: String = "Monte Carlo Tree Search"
     private var highlightedMoves: [(move: ReversiMove, color: UIColor)] = []
     
@@ -58,7 +59,7 @@ class ReversiInteractor {
     
     // RESETTING THE GAME
     func restartGame(_ withAIType: Opponent) {
-        // Reset the board to initial setup with the chosen AI opponent type
+        // Reset the board to initial setup with the chosen sopponent type
         self.currentOpponent = withAIType
         game.reset()
         
@@ -91,10 +92,12 @@ private extension ReversiInteractor {
                 let aiThinkTime: TimeInterval = 2
                 
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
-                    self.runAIOpponentTurn(timeLimit: aiThinkTime, fromGameState: currentGameState!)
+                    self.runMonteCarloTurn(timeLimit: aiThinkTime, fromGameState: currentGameState!)
                 }
             case .alphaBeta:
-                return //TODO
+                if let bestMove = AlphaBetaPruning.bestMove(for: game.board, depth: 5, playerColor: opponentColor) {
+                    game.makeMove(ReversiMove(x: bestMove.x, y: bestMove.y), for: opponentColor)
+                }
             case .human:
                 // If it's the human's turn, do nothing — waiting for human interaction.
                 return
@@ -102,11 +105,8 @@ private extension ReversiInteractor {
         }
     }
     
-    private func runAIOpponentTurn(timeLimit: TimeInterval, fromGameState currentGameState: ReversiGame) {
-        print("Starting Monte Carlo Tree Search")
-        
-        mctsSearch.updateStartingState(currentGameState) // Use this to reuse already computed nodes
-        //mctsSearch = MonteCarloTreeSearch(startingGameState: currentGameState, aiColor: aiColor) // Use this to start with a clean sheet.
+    private func runMonteCarloTurn(timeLimit: TimeInterval, fromGameState currentGameState: ReversiGame) {
+        mctsSearch.updateStartingState(currentGameState)
         
         // Loop until allotted timeLimit is reached,
         // eport updates to ui frequently so the user doesn't have to start an static screen
